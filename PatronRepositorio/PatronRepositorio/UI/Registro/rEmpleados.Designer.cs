@@ -182,6 +182,7 @@
             this.SueldotextBox.Name = "SueldotextBox";
             this.SueldotextBox.Size = new System.Drawing.Size(332, 20);
             this.SueldotextBox.TabIndex = 14;
+            this.SueldotextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.SueldotextBox_KeyPress);
             // 
             // IncentivotextBox
             // 
@@ -189,6 +190,7 @@
             this.IncentivotextBox.Name = "IncentivotextBox";
             this.IncentivotextBox.Size = new System.Drawing.Size(332, 20);
             this.IncentivotextBox.TabIndex = 15;
+            this.IncentivotextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.IncentivotextBox_KeyPress);
             // 
             // Buscarbutton
             // 

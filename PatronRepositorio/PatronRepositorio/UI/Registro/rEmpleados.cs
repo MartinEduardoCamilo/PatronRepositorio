@@ -225,5 +225,66 @@ namespace PatronRepositorio.UI.Registro
                 }
             }
         }
+
+        //validacion solo para datos de tipo decimal
+        private void SueldotextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 8)
+            {
+                e.Handled = false;
+                return;
+            }
+
+            bool paso = false;
+            decimal numero = 0;
+
+            for (int i = 0; i < SueldotextBox.Text.Length; i++)
+            {
+                if (SueldotextBox.Text[i] == '.')
+                    paso = true;
+                if (paso && numero++ >= 2)
+                {
+                    e.Handled = true;
+                    return;
+                }
+            }
+
+            if (e.KeyChar >= 48 && e.KeyChar <= 57)
+                e.Handled = false;
+            else if (e.KeyChar == 46)
+                e.Handled = (paso) ? true : false;
+            else
+                e.Handled = true;
+        }
+
+        private void IncentivotextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 8)
+            {
+                e.Handled = false;
+                return;
+            }
+
+            bool paso = false;
+            decimal numero = 0;
+
+            for (int i = 0; i < IncentivotextBox.Text.Length; i++)
+            {
+                if (IncentivotextBox.Text[i] == '.')
+                    paso = true;
+                if (paso && numero++ >= 2)
+                {
+                    e.Handled = true;
+                    return;
+                }
+            }
+
+            if (e.KeyChar >= 48 && e.KeyChar <= 57)
+                e.Handled = false;
+            else if (e.KeyChar == 46)
+                e.Handled = (paso) ? true : false;
+            else
+                e.Handled = true;
+        }
     }
 }
