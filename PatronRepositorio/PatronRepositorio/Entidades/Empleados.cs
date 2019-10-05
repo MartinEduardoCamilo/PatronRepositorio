@@ -12,6 +12,7 @@ namespace PatronRepositorio.Entidades
         [Key]
         public int EmpleadoID { get; set; }
         public DateTime Fecha { get; set; }
+        public string Nombre { get; set; }
         public string Direccion { get; set; }
         public string Telefono { get; set; }
         public string Celular { get; set; }
@@ -23,6 +24,7 @@ namespace PatronRepositorio.Entidades
         {
             EmpleadoID = 0;
             Fecha = DateTime.Now;
+            Nombre = string.Empty;
             Direccion = string.Empty;
             Telefono = string.Empty;
             Celular = string.Empty;

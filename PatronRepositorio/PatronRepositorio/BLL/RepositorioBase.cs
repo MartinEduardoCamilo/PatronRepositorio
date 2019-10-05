@@ -11,59 +11,10 @@ namespace PatronRepositorio.BLL
 {
     public class RepositorioBase<T> : IDisposable, IRepository<T> where T : class
     {
-        internal Contexto _contexto;
+        internal Contexto db;
         public RepositorioBase()
         {
-            _contexto = new Contexto();
-        }
-        public virtual T Buscar(int id)
-        {
-            T entity;
-            try
-            {
-                entity = _contexto.Set<T>().Find(id);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            return entity;
-        }
-
-        public void Dispose()
-        {
-            _contexto.Dispose();
-        }
-
-        public virtual bool Eliminar(int id)
-        {
-            bool paso = false;
-            try
-            {
-                T entity = _contexto.Set<T>().Find(id);
-                _contexto.Set<T>().Remove(entity);
-
-                paso = _contexto.SaveChanges() > 0;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            return paso;
-        }
-
-        public List<T> GetList(Expression<Func<T, bool>> expression)
-        {
-            List<T> lista = new List<T>();
-            try
-            {
-                lista = _contexto.Set<T>().Where(expression).ToList();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            return lista;
+            db = new Contexto();
         }
 
         public virtual bool Guardar(T entity)
@@ -71,8 +22,8 @@ namespace PatronRepositorio.BLL
             bool paso = false;
             try
             {
-                if (_contexto.Set<T>().Add(entity) != null)
-                    paso = _contexto.SaveChanges() > 0;
+                if (db.Set<T>().Add(entity) != null)
+                    paso = db.SaveChanges() > 0;
             }
             catch (Exception)
             {
@@ -86,14 +37,64 @@ namespace PatronRepositorio.BLL
             bool paso = false;
             try
             {
-                _contexto.Entry(entity).State = EntityState.Modified;
-                paso = _contexto.SaveChanges() > 0;
+                db.Entry(entity).State = EntityState.Modified;
+                paso = db.SaveChanges() > 0;
             }
             catch (Exception)
             {
                 throw;
             }
             return paso;
+        }
+
+        public virtual T Buscar(int ID)
+        {
+            T entity;
+            try
+            {
+                entity = db.Set<T>().Find(ID);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return entity;
+        }
+
+        public void Dispose()
+        {
+            db.Dispose();
+        }
+
+        public virtual bool Eliminar(int ID)
+        {
+            bool paso = false;
+            try
+            {
+                T entity = db.Set<T>().Find(ID);
+                db.Set<T>().Remove(entity);
+
+                paso = db.SaveChanges() > 0;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return paso;
+        }
+
+        public List<T> GetList(Expression<Func<T, bool>> expression)
+        {
+            List<T> lista = new List<T>();
+            try
+            {
+                lista = db.Set<T>().Where(expression).ToList();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return lista;
         }
     }
 }
